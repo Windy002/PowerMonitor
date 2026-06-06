@@ -13,31 +13,46 @@ public class MainViewModel : INotifyPropertyChanged
 {
     private readonly IPowerMonitorService _powerService;
     private readonly List<DataPoint> _powerHistory = new();
-    private const int MaxPoints = 720;
+    private const int MaxPoints = 360;
 
     public MainViewModel(IPowerMonitorService powerService)
     {
         _powerService = powerService;
-        PlotModel = new PlotModel { Title = "实时功率 (W)" };
+        PlotModel = new PlotModel
+        {
+            Title = null,
+            TextColor = OxyColor.FromRgb(140, 140, 140),
+            PlotAreaBorderColor = OxyColors.Transparent
+        };
         PlotModel.Axes.Add(new DateTimeAxis
         {
             Position = AxisPosition.Bottom,
-            StringFormat = "HH:mm:ss",
-            IntervalType = DateTimeIntervalType.Seconds
+            StringFormat = "HH:mm",
+            IntervalType = DateTimeIntervalType.Auto,
+            TextColor = OxyColor.FromRgb(140, 140, 140),
+            MajorGridlineColor = OxyColor.FromRgb(50, 50, 50),
+            AxislineColor = OxyColor.FromRgb(70, 70, 70),
+            FontSize = 11
         });
         PlotModel.Axes.Add(new LinearAxis
         {
             Position = AxisPosition.Left,
-            Title = "W",
-            Minimum = 0
+            Minimum = 0,
+            TextColor = OxyColor.FromRgb(140, 140, 140),
+            MajorGridlineColor = OxyColor.FromRgb(50, 50, 50),
+            AxislineColor = OxyColor.FromRgb(70, 70, 70),
+            FontSize = 11,
+            StringFormat = "F0"
         });
-        var series = new LineSeries
+        var lineSeries = new LineSeries
         {
-            Color = OxyColor.FromRgb(0, 200, 100),
+            Color = OxyColor.FromRgb(96, 205, 137),
             StrokeThickness = 2,
-            LineStyle = LineStyle.Solid
+            LineStyle = LineStyle.Solid,
+            TrackerFormatString = "{2:HH:mm:ss}\n{4:F0} W"
         };
-        PlotModel.Series.Add(series);
+        lineSeries.ItemsSource = _powerHistory;
+        PlotModel.Series.Add(lineSeries);
 
         _powerService.SnapshotUpdated += OnSnapshotUpdated;
     }
@@ -154,10 +169,10 @@ public class MainViewModel : INotifyPropertyChanged
             while (_powerHistory.Count > MaxPoints)
                 _powerHistory.RemoveAt(0);
 
-            var series = PlotModel.Series[0] as LineSeries;
-            if (series != null)
+            var data = _powerHistory.ToArray();
+            if (PlotModel.Series.Count >= 1)
             {
-                series.ItemsSource = _powerHistory.ToArray();
+                ((LineSeries)PlotModel.Series[0]).ItemsSource = data;
                 PlotModel.InvalidatePlot(true);
             }
         });

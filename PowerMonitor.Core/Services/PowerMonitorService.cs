@@ -159,25 +159,46 @@ public class PowerMonitorService : IPowerMonitorService, IDisposable
 
     private PowerSnapshot BuildSnapshot()
     {
-        List<(DateTime, double)> samples;
+        List<(DateTime, double)> sessionCopy;
         lock (_lock)
         {
-            samples = _sessionSamples.ToList();
+            sessionCopy = _sessionSamples.ToList();
         }
 
         var pricePerKwh = GetPricePerKwh();
 
+        // Merge session samples with DB history for accurate billing
+        var today = DateTime.Today;
+        var dayStart = today;
+        var weekStart = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
+        var monthStart = new DateTime(today.Year, today.Month, 1);
+
+        var dbSamples = _db.GetSamples(monthStart, DateTime.Now);
+        var allSamples = new List<(DateTime, double)>();
+        foreach (var s in dbSamples)
+            allSamples.Add((s.Timestamp, s.TotalWatts));
+        // Add session samples not yet in DB
+        var dbTimes = new HashSet<DateTime>(dbSamples.Select(s => s.Timestamp));
+        foreach (var s in sessionCopy)
+        {
+            if (!dbTimes.Contains(s.Item1))
+                allSamples.Add(s);
+        }
+        allSamples = allSamples.OrderBy(s => s.Item1).ToList();
+
+        var totalWatts = sessionCopy.Count > 0 ? sessionCopy.Last().Item2 : 0;
+
         return new PowerSnapshot
         {
             Timestamp = DateTime.Now,
-            TotalWatts = samples.Count > 0 ? samples.Last().Item2 : 0,
-            Components = samples.Count > 0
+            TotalWatts = totalWatts,
+            Components = sessionCopy.Count > 0
                 ? JsonSerializer.Deserialize<List<ComponentPower>>(
                     _db.GetLatestSample()?.SensorJson ?? "[]") ?? new List<ComponentPower>()
                 : new List<ComponentPower>(),
-            DayBilling = _billing.CalculateDayBilling(samples, pricePerKwh),
-            WeekBilling = _billing.CalculateWeekBilling(samples, pricePerKwh),
-            MonthBilling = _billing.CalculateMonthBilling(samples, pricePerKwh),
+            DayBilling = _billing.CalculateDayBilling(allSamples, pricePerKwh),
+            WeekBilling = _billing.CalculateWeekBilling(allSamples, pricePerKwh),
+            MonthBilling = _billing.CalculateMonthBilling(allSamples, pricePerKwh),
             State = _scheduler.State
         };
     }

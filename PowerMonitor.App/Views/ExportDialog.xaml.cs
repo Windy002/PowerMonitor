@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Input;
 
 namespace PowerMonitor.App.Views;
 
@@ -13,6 +14,11 @@ public partial class ExportDialog : Window
         InitializeComponent();
         StartPicker.SelectedDate = DateTime.Today.AddDays(-7);
         EndPicker.SelectedDate = DateTime.Today;
+    }
+
+    private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left) DragMove();
     }
 
     private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -30,7 +36,7 @@ public partial class ExportDialog : Window
         }
 
         StartDate = StartPicker.SelectedDate.Value;
-        EndDate = EndPicker.SelectedDate.Value.AddDays(1); // include the end date
+        EndDate = EndPicker.SelectedDate.Value.AddDays(1);
         if (StartDate >= EndDate)
         {
             MessageBox.Show("开始日期必须早于结束日期", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
