@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\App.xaml
-5-1622110510
+6785956376
 
-12-1830426545
+13365481558
 222669797963
-MainWindow.xaml;Views\DashboardView.xaml;Views\ExportDialog.xaml;Views\HistoryView.xaml;Views\SettingsView.xaml;
+MainWindow.xaml;Views\AboutDialog.xaml;Views\DashboardView.xaml;Views\ExportDialog.xaml;Views\HistoryView.xaml;Views\SettingsView.xaml;
 
 False
 

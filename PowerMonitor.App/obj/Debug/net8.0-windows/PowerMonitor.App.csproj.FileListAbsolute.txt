@@ -102,3 +102,5 @@ C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\ExportDialog.baml
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\ExportDialog.g.cs
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App.sourcelink.json
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\AboutDialog.baml
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\AboutDialog.g.cs

@@ -27,7 +27,22 @@
             </Border>
 
             <Border Grid.Column="1" Background="#1A1A2E" CornerRadius="8" Padding="10" Margin="10,0,0,0">
-                <oxy:PlotView Model="{Binding PlotModel}"/>
+                <Grid>
+                    <oxy:PlotView Model="{Binding PlotModel}"/>
+                    <TextBlock Text="等待采样数据..." Foreground="#666" FontSize="16"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="Collapsed">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TotalWatts}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
             </Border>
         </Grid>
 
