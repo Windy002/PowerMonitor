@@ -54,6 +54,7 @@ public class HistoryViewModel : INotifyPropertyChanged
             .GroupBy(s => new DateTime(s.Timestamp.Year, s.Timestamp.Month, s.Timestamp.Day, s.Timestamp.Hour, 0, 0))
             .OrderBy(g => g.Key);
 
+        var interval = _powerService.GetInterval();
         foreach (var group in grouped)
         {
             var pricePerKwh = group.First().PricePerKwh;
@@ -63,8 +64,8 @@ public class HistoryViewModel : INotifyPropertyChanged
                 AvgWatts = $"{group.Average(s => s.TotalWatts):F1}",
                 MinWatts = $"{group.Min(s => s.TotalWatts):F1}",
                 MaxWatts = $"{group.Max(s => s.TotalWatts):F1}",
-                Kwh = $"{group.Sum(s => s.TotalWatts) * 5 / 3_600_000.0:F4}",
-                Cost = $"¥{group.Sum(s => s.TotalWatts) * 5 / 3_600_000.0 * pricePerKwh:F2}"
+                Kwh = $"{group.Sum(s => s.TotalWatts) * interval / 3_600_000.0:F4}",
+                Cost = $"¥{group.Sum(s => s.TotalWatts) * interval / 3_600_000.0 * pricePerKwh:F2}"
             });
         }
     }

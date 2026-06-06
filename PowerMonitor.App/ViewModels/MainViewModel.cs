@@ -91,6 +91,13 @@ public class MainViewModel : INotifyPropertyChanged
         set { _intervalInfo = value; OnPropertyChanged(); }
     }
 
+    private string _pauseButtonText = "暂停";
+    public string PauseButtonText
+    {
+        get => _pauseButtonText;
+        set { _pauseButtonText = value; OnPropertyChanged(); }
+    }
+
     public ObservableCollection<ComponentPower> Components { get; } = new();
     public PlotModel PlotModel { get; }
 
@@ -131,6 +138,7 @@ public class MainViewModel : INotifyPropertyChanged
         {
             TotalWatts = snapshot.TotalWatts;
             StateText = snapshot.State == SamplingState.Running ? "运行中 🟢" : "已暂停 🟡";
+            PauseButtonText = snapshot.State == SamplingState.Running ? "暂停" : "继续";
             DayCost = $"¥{snapshot.DayBilling.Cost:F2}";
             WeekCost = $"¥{snapshot.WeekBilling.Cost:F2}";
             MonthCost = $"¥{snapshot.MonthBilling.Cost:F2}";

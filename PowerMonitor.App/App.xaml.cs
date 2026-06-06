@@ -1,5 +1,6 @@
 using System.IO;
 using System.Windows;
+using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using PowerMonitor.Core.Services;
 using PowerMonitor.App.Controls;
@@ -8,11 +9,19 @@ namespace PowerMonitor.App;
 
 public partial class App : Application
 {
-    private readonly ServiceProvider _serviceProvider;
+    private static readonly Mutex AppMutex = new(true, "PowerMonitor_SingleInstance");
+    private ServiceProvider? _serviceProvider;
     private TrayIconManager? _trayManager;
 
     public App()
     {
+        if (!AppMutex.WaitOne(TimeSpan.Zero, true))
+        {
+            MessageBox.Show("PowerMonitor 已经在运行中", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            Shutdown();
+            return;
+        }
+
         var services = new ServiceCollection();
         ConfigureServices(services);
         _serviceProvider = services.BuildServiceProvider();
@@ -40,8 +49,8 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        var powerService = _serviceProvider.GetRequiredService<IPowerMonitorService>();
-        _trayManager = new TrayIconManager(powerService, _serviceProvider);
+        var powerService = _serviceProvider!.GetRequiredService<IPowerMonitorService>();
+        _trayManager = new TrayIconManager(powerService, _serviceProvider!);
 
         try
         {
@@ -58,9 +67,9 @@ public partial class App : Application
     protected override void OnExit(ExitEventArgs e)
     {
         _trayManager?.Dispose();
-        var powerService = _serviceProvider.GetRequiredService<IPowerMonitorService>();
+        var powerService = _serviceProvider!.GetRequiredService<IPowerMonitorService>();
         powerService.Stop();
-        _serviceProvider.Dispose();
+        _serviceProvider!.Dispose();
         base.OnExit(e);
     }
 }

@@ -111,7 +111,7 @@
         <Border Grid.Row="2" Background="#1A1A2E" CornerRadius="8" Padding="10" Margin="0,10,0,0">
             <Grid>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="开始/暂停" Click="TogglePause_Click" Width="80" Margin="0,0,10,0"
+                    <Button Content="{Binding PauseButtonText}" Click="TogglePause_Click" Width="80" Margin="0,0,10,0"
                             Background="#333" Foreground="White" BorderThickness="0"/>
                     <Button Content="导出CSV" Click="ExportCsv_Click" Width="80" Margin="0,0,10,0"
                             Background="#333" Foreground="White" BorderThickness="0"/>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PowerMonitor.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de924e2cc6f55b3c7222f5fd561a2e1a9f7c5ad9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dba8804a2611bbc99b69cff959f3e4af72d77c41")]
 [assembly: System.Reflection.AssemblyProductAttribute("PowerMonitor.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PowerMonitor.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
