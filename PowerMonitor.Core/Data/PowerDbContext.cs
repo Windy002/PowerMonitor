@@ -9,6 +9,8 @@ public class PowerDbContext : IDisposable
 
     public PowerDbContext(string dbPath)
     {
+        var dir = Path.GetDirectoryName(dbPath);
+        if (dir != null) Directory.CreateDirectory(dir);
         _connection = new SqliteConnection($"Data Source={dbPath}");
         _connection.Open();
         InitializeDatabase();
