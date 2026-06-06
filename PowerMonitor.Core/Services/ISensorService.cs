@@ -8,5 +8,6 @@ public interface ISensorService
     bool Initialize();
     List<ComponentPower> ReadSensors();
     HardwareInfo GetHardwareInfo();
+    double ReadCpuLoad();
     int ConsecutiveFailures { get; }
 }

@@ -143,6 +143,7 @@ public class PowerMonitorService : IPowerMonitorService, IDisposable
 
             var sensorTotal = sensorComponents.Sum(c => c.Watts);
             var hwInfo = _sensor.GetHardwareInfo();
+            hwInfo.CpuLoadPercent = _sensor.ReadCpuLoad();  // 实时 CPU 负载，供估算引擎使用
             var estimatedComponents = _estimation.EstimateComponents(hwInfo, sensorTotal);
 
             var allComponents = new List<ComponentPower>();
