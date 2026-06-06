@@ -29,4 +29,6 @@ public interface IPowerMonitorService
     List<PowerSample> GetHistory(DateTime from, DateTime to);
     void ExportCsv(DateTime from, DateTime to, string filePath);
     void CleanupOldData(int retentionDays);
+    void SetRetentionDays(int days);
+    int GetRetentionDays();
 }

@@ -14,7 +14,7 @@ public class SettingsViewModel : INotifyPropertyChanged
         _powerService = powerService;
         _pricePerKwh = _powerService.GetPricePerKwh().ToString("F2");
         _interval = _powerService.GetInterval();
-        _retentionDays = 90;
+        _retentionDays = _powerService.GetRetentionDays();
 
         SaveCommand = new RelayCommand(_ => Save());
     }
@@ -56,6 +56,7 @@ public class SettingsViewModel : INotifyPropertyChanged
             _powerService.SetPricePerKwh(price);
         }
         _powerService.SetInterval(Math.Clamp(_interval, 1, 60));
+        _powerService.SetRetentionDays(Math.Clamp(_retentionDays, 7, 365));
         _powerService.CleanupOldData(_retentionDays);
         StatusMessage = "设置已保存 ✓";
     }

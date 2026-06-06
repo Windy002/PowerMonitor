@@ -87,6 +87,17 @@ public class PowerMonitorService : IPowerMonitorService, IDisposable
         Logger.Info($"Cleaned up data older than {cutoff:yyyy-MM-dd}");
     }
 
+    public void SetRetentionDays(int days)
+    {
+        _db.SetConfig("retention_days", days.ToString());
+    }
+
+    public int GetRetentionDays()
+    {
+        var val = _db.GetConfig("retention_days", "90");
+        return int.TryParse(val, out var days) ? days : 90;
+    }
+
     private void OnSampleTick(object? sender, EventArgs e)
     {
         try

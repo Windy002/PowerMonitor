@@ -46,6 +46,7 @@ public partial class App : Application
         try
         {
             powerService.Start();
+            _trayManager.OpenDashboard();
         }
         catch (InvalidOperationException ex)
         {

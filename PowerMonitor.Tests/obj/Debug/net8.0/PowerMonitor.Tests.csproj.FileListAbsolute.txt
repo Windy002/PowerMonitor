@@ -166,3 +166,4 @@ C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Tests\obj\Debug\net8.
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Tests\obj\Debug\net8.0\PowerMonitor.Tests.pdb
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Tests\obj\Debug\net8.0\PowerMonitor.Tests.genruntimeconfig.cache
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Tests\obj\Debug\net8.0\ref\PowerMonitor.Tests.dll
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Tests\obj\Debug\net8.0\PowerMonitor.Tests.sourcelink.json

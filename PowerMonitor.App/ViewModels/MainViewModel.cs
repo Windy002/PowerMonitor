@@ -105,15 +105,21 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void ExportCsv()
     {
-        var dialog = new Microsoft.Win32.SaveFileDialog
+        var dateDialog = new Views.ExportDialog();
+        dateDialog.Owner = System.Windows.Application.Current.Windows.OfType<System.Windows.Window>().FirstOrDefault(w => w.IsActive);
+        dateDialog.ShowDialog();
+
+        if (!dateDialog.Confirmed) return;
+
+        var saveDialog = new Microsoft.Win32.SaveFileDialog
         {
             Filter = "CSV files (*.csv)|*.csv",
             DefaultExt = ".csv",
-            FileName = $"power_export_{DateTime.Now:yyyyMMdd}.csv"
+            FileName = $"power_export_{dateDialog.StartDate:yyyyMMdd}_{dateDialog.EndDate.AddDays(-1):yyyyMMdd}.csv"
         };
-        if (dialog.ShowDialog() == true)
+        if (saveDialog.ShowDialog() == true)
         {
-            _powerService.ExportCsv(DateTime.Today.AddDays(-7), DateTime.Now, dialog.FileName);
+            _powerService.ExportCsv(dateDialog.StartDate, dateDialog.EndDate, saveDialog.FileName);
             System.Windows.MessageBox.Show("导出成功", "导出", System.Windows.MessageBoxButton.OK,
                 System.Windows.MessageBoxImage.Information);
         }

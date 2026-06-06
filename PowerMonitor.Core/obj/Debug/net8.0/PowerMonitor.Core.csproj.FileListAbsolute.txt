@@ -10,3 +10,4 @@ C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Core\obj\Debug\net8.0
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Core\obj\Debug\net8.0\refint\PowerMonitor.Core.dll
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Core\obj\Debug\net8.0\PowerMonitor.Core.pdb
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Core\obj\Debug\net8.0\ref\PowerMonitor.Core.dll
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.Core\obj\Debug\net8.0\PowerMonitor.Core.sourcelink.json
