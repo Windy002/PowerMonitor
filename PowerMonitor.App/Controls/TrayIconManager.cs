@@ -61,12 +61,12 @@ public class TrayIconManager : IDisposable
             if (_mainWindow == null)
             {
                 _mainWindow = new MainWindow(_powerService, _serviceProvider);
-                _mainWindow.Closed += (_, _) => _mainWindow = null;
                 _mainWindow.Show();
             }
             else
             {
                 _mainWindow.WindowState = WindowState.Normal;
+                _mainWindow.Show();
                 _mainWindow.Activate();
             }
         });

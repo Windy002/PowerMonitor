@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using PowerMonitor.Core.Services;
@@ -17,14 +18,11 @@ public partial class MainWindow : Window
         HistoryFrame.Content = new HistoryView(powerService);
         SettingsFrame.Content = new SettingsView(powerService);
         RestoreWindowPosition();
-        Closed += OnClosed;
+        Closing += OnClosing;
     }
 
     private void RestoreWindowPosition()
     {
-        var snap = _powerService.GetLatestSnapshot();
-        // Window position stored in config as "window_x,y,w,h"
-        // We'll use a simple approach: just store in a local file
         var posFile = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "PowerMonitor", "window.pos");
@@ -49,8 +47,9 @@ public partial class MainWindow : Window
         }
     }
 
-    private void OnClosed(object? sender, EventArgs e)
+    private void OnClosing(object? sender, CancelEventArgs e)
     {
+        // Save position
         var posFile = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "PowerMonitor", "window.pos");
@@ -61,6 +60,10 @@ public partial class MainWindow : Window
             File.WriteAllText(posFile, $"{Left},{Top},{Width},{Height}");
         }
         catch { }
+
+        // Hide instead of close — tray app pattern
+        e.Cancel = true;
+        Hide();
     }
 
     private void Window_StateChanged(object sender, EventArgs e)
