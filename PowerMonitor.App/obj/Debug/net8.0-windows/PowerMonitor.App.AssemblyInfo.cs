@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PowerMonitor.App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f52dda10ccfe998f6e0c27703c9a8587fb065eb3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7931c4159f0fb6a2c8a220781d2d3a9e23c89356")]
 [assembly: System.Reflection.AssemblyProductAttribute("PowerMonitor.App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PowerMonitor.App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

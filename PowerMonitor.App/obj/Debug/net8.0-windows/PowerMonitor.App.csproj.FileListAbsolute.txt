@@ -80,7 +80,6 @@ C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App_MarkupCompile.cache
-C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App_MarkupCompile.lref
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App.g.resources
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App.GeneratedMSBuildEditorConfig.editorconfig
@@ -93,3 +92,10 @@ C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App.pdb
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\PowerMonitor.App.genruntimeconfig.cache
 C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\ref\PowerMonitor.App.dll
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\DashboardView.baml
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\HistoryView.baml
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\SettingsView.baml
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\App.baml
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\DashboardView.g.cs
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\HistoryView.g.cs
+C:\Users\Sakura\Vibecoding\本机耗电情况\PowerMonitor.App\obj\Debug\net8.0-windows\Views\SettingsView.g.cs
