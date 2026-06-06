@@ -42,7 +42,6 @@ public class TrayIconManager : IDisposable
         _notifyIcon.Text = $"总功率: {snapshot.TotalWatts:F0}W\n" +
                           $"今日电费: ¥{snapshot.DayBilling.Cost:F2}\n" +
                           $"状态: {(snapshot.State == SamplingState.Running ? "运行中" : "已暂停")}";
-        _notifyIcon.Icon = GenerateTrayIcon((int)snapshot.TotalWatts);
     }
 
     private void OnSensorWarning(object? sender, string message)
