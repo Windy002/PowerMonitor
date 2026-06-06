@@ -92,6 +92,32 @@ public class PowerMonitorService : IPowerMonitorService, IDisposable
         _db.SetConfig("retention_days", days.ToString());
     }
 
+    public void SetAutoStart(bool enabled)
+    {
+        const string runKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+        using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(runKey, true);
+        if (key == null) return;
+
+        if (enabled)
+        {
+            var exePath = Environment.ProcessPath ?? Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "PowerMonitor.App.exe");
+            key.SetValue("PowerMonitor", $"\"{exePath}\"");
+        }
+        else
+        {
+            key.DeleteValue("PowerMonitor", false);
+        }
+        _db.SetConfig("auto_start", enabled ? "1" : "0");
+    }
+
+    public bool GetAutoStart()
+    {
+        const string runKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+        using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(runKey, false);
+        return key?.GetValue("PowerMonitor") != null;
+    }
+
     public int GetRetentionDays()
     {
         var val = _db.GetConfig("retention_days", "90");

@@ -31,4 +31,6 @@ public interface IPowerMonitorService
     void CleanupOldData(int retentionDays);
     void SetRetentionDays(int days);
     int GetRetentionDays();
+    void SetAutoStart(bool enabled);
+    bool GetAutoStart();
 }
