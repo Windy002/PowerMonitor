@@ -146,21 +146,28 @@ public class PowerMonitorService : IPowerMonitorService, IDisposable
             hwInfo.CpuLoadPercent = _sensor.ReadCpuLoad();  // 实时 CPU 负载，供估算引擎使用
             var estimatedComponents = _estimation.EstimateComponents(hwInfo, sensorTotal);
 
+            // 如果传感器已覆盖 CPU，移除估算的 CPU 避免重复累加
+            var hasCpuSensor = sensorComponents.Any(c =>
+                c.Name.Contains("CPU", StringComparison.OrdinalIgnoreCase));
+            if (hasCpuSensor)
+                estimatedComponents.RemoveAll(c => c.Name.StartsWith("CPU"));
+
             var allComponents = new List<ComponentPower>();
             allComponents.AddRange(sensorComponents);
             allComponents.AddRange(estimatedComponents);
 
             var totalWatts = allComponents.Sum(c => c.Watts);
             var pricePerKwh = GetPricePerKwh();
+            var now = DateTime.Now; // 一次捕获，session 和 DB 共用，避免 BuildSnapshot 去重失效
 
             lock (_lock)
             {
-                _sessionSamples.Add((DateTime.Now, totalWatts));
+                _sessionSamples.Add((now, totalWatts));
             }
 
             var sample = new PowerSample
             {
-                Timestamp = DateTime.Now,
+                Timestamp = now,
                 TotalWatts = Math.Round(totalWatts, 1),
                 SensorJson = JsonSerializer.Serialize(allComponents),
                 PricePerKwh = pricePerKwh
